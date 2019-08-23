@@ -1,14 +1,48 @@
 import numpy
 import random
-random.seed(100)
+import json
+from sprite_strip_anim import SpriteStripAnim
 
-images_list = []
+def get_mouthqueue_list(file):
+    mouth_lapse = {}
+    strips = []
+    with open(file) as action_file:
+        action_data = json.load(action_file)
 
-for i in range(4):
-    value_list = [round(random.uniform(0.05,1.0),2), i]
-    images_list.append(value_list)
+        mouthQues_data = action_data["mouthCues"]
+
+        for queue in mouthQues_data:
+            value =  queue["value"]
+            print(get_mouth_sprite(value))
+            strips.append(SpriteStripAnim('image/lips.png',get_mouth_sprite(value), 3, 1, False, queue["lapse"]))
+
+    return strips
+
+def get_mouth_sprite(value):
+    if value == "A":
+        return (0, 0, 155, 155)
+    if value == "B":
+        return (0, 155, 155, 155)
+    if value == "C":
+        return (0, 310, 155, 155)
+    if value == "D":
+        return (0, 0, 155, 155)
+    if value == "E":
+        return (0, 0, 155, 155)
+    if value == "F":
+        return (0, 0, 155, 155)
+    if value == "G":
+        return (0, 0, 155, 155)
+    if value == "H":
+        return (0, 0, 155, 155)
+    if value == "X":
+        return (0, 0, 155, 155)
 
 
-for item in images_list:
-    print(item)
 
+# strips = [
+#     SpriteStripAnim('image/lips.png', (0, 0,   155, 155), 3, 1, False, frames),
+#     SpriteStripAnim('image/lips.png', (0, 155, 155, 155), 3, 1, False, frames)
+#     # SpriteStripAnim('image/lips.png', (0, 310, 155, 155), 3, 1, True, frames),
+
+# ]

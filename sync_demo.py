@@ -16,17 +16,15 @@ import pygame
 from pygame.locals import Color, KEYUP, K_ESCAPE, K_RETURN
 import spritesheet
 from sprite_strip_anim import SpriteStripAnim
+import image_scan
 
 surface = pygame.display.set_mode((200,200))
 FPS = 60
 frames = FPS / 2
-strips = [
-    SpriteStripAnim('image/lips.png', (0, 0,   155, 155), 3, 1, False, frames),
-    SpriteStripAnim('image/lips.png', (0, 155, 155, 155), 3, 1, False, frames)
-    # SpriteStripAnim('image/lips.png', (0, 310, 155, 155), 3, 1, True, frames),
-
-]
-black = Color('black')
+strips = image_scan.get_mouthqueue_list('./actions/hear_me_Smile.json')
+# image_scan.get_lapse_time('./actions/hear_me_Smile.json')
+# image_scan.get_mouth_sprite("A")
+white = Color('white')
 clock = pygame.time.Clock()
 n = 0
 strips[n].iter()
@@ -41,7 +39,7 @@ while True:
                 if n >= len(strips):
                     n = 0
                 strips[n].iter()
-    surface.fill(black)
+    surface.fill(white)
     surface.blit(image, (0,0))
     pygame.display.flip()
     try:
