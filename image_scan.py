@@ -13,30 +13,37 @@ def get_mouthqueue_list(file):
 
         for queue in mouthQues_data:
             value =  queue["value"]
-            print(get_mouth_sprite(value))
-            strips.append(SpriteStripAnim('image/lips.png',get_mouth_sprite(value), 3, 1, False, queue["lapse"]))
+            if len(strips) == 0:
+                strips.append(SpriteStripAnim('image/lips.png', get_mouth_sprite(value), 1, 1, False, int(queue["lapse"] * 240)))
+            else:
+                # len(strips)
+                strips[0] += (SpriteStripAnim('image/lips.png', get_mouth_sprite(value), 1, 1, False, int(queue["lapse"] * 240)))
+            # strips.append(SpriteStripAnim('image/lips.png', get_mouth_sprite(value), count=1,colorkey=1, loop=False, frames=int(queue["lapse"] * 60)))
+            # strips.append(SpriteStripAnim('image/lips.png', get_mouth_sprite(value), 1, 1, False, 10))
+            # colorkey = None, loop = False, frames = 1
+
 
     return strips
 
 def get_mouth_sprite(value):
     if value == "A":
-        return (0, 0, 155, 155)
+        return (125, 310, 155, 155) #Done
     if value == "B":
-        return (0, 155, 155, 155)
+        return (125, 125, 165, 155) #Done
     if value == "C":
-        return (0, 310, 155, 155)
+        return (310, 0, 155, 155)
     if value == "D":
         return (0, 0, 155, 155)
     if value == "E":
-        return (0, 0, 155, 155)
+        return (140, 0, 125, 125) #Done
     if value == "F":
-        return (0, 0, 155, 155)
+        return (0, 310, 155, 155) #Done
     if value == "G":
-        return (0, 0, 155, 155)
+        return (300, 300, 165, 155) #Done
     if value == "H":
-        return (0, 0, 155, 155)
+        return (300, 125, 155, 155) #Done
     if value == "X":
-        return (0, 0, 155, 155)
+        return (125, 310, 155, 155)  # Done
 
 
 
