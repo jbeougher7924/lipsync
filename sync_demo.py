@@ -13,6 +13,7 @@ order to provide the means to handle sprite strip cells with borders:
 """
 import sys
 import pygame
+from pygame import mixer
 from pygame.locals import Color, KEYUP, K_ESCAPE, K_RETURN
 import spritesheet
 from sprite_strip_anim import SpriteStripAnim
@@ -22,6 +23,10 @@ surface = pygame.display.set_mode((200,200))
 FPS = 60
 frames = FPS / 2
 strips = image_scan.get_mouthqueue_list('./actions/hear_me_Smile.json')
+# strips = [
+#     SpriteStripAnim('image/lips.png', (0, 0, 155, 155), 3, 1, True, frames),
+#     SpriteStripAnim('image/lips.png', (0, 125, 165, 155), 3, 1, True, frames),
+#     ]
 # image_scan.get_lapse_time('./actions/hear_me_Smile.json')
 # image_scan.get_mouth_sprite("A")
 white = Color('white')
@@ -29,6 +34,9 @@ clock = pygame.time.Clock()
 n = 0
 strips[n].iter()
 image = strips[n].next()
+mixer.init()
+sound = mixer.Sound("./audio/hear_me.wav")
+sound.play()
 while True:
     for e in pygame.event.get():
         if e.type == KEYUP:
@@ -38,10 +46,12 @@ while True:
                 n += 1
                 if n >= len(strips):
                     n = 0
+                sound.play()
                 strips[n].iter()
     surface.fill(white)
     surface.blit(image, (0,0))
     pygame.display.flip()
+
     try:
         image = strips[n].next()
     except:
